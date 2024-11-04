@@ -1,30 +1,32 @@
 # Laravel Assessment: TODO API
 
-## Setup
-This project should use [Laravel](https://laravel.com/docs/11.x/) to provide an API that can be consumed by a front-end application.
-
-Please fork this repository and show us what you've got!
-
-P.S. An easy way to work on this is to use GitHub Codespaces by clicking on the "<> Code" button on the repository and creating a new codespace. You would then run `composer install` in the terminal, followed by `php artisan serve`.
+A simple TODO API built using Laravel, following [JSON:API v1.0](https://jsonapi.org/format/1.0/) specification. This project demonstrates creating, reading, updating, and deleting users and TODO items with pagination and filtering.
 
 ## Requirements
-### Design
-The API is a minimized (and slightly altered) implementation of the [JSON:API v1.0](https://jsonapi.org/format/1.0/) specification.
 
-### Functional Requirements
-A full OpenAPI specification of the requirements can be found [here](./openapi.yaml) and can be visualized by pasting its contents into [Swagger's online editor](https://editor-next.swagger.io/) to be easier to understand.
+-   PHP 8.0 or higher
+-   Composer
+-   MySQL or another compatible database
 
-#### Extra Credit Ideas (Just for fun!)
-- Implementing a pagination strategy or filtering for collection endpoints
-- Implementing any other features in the full JSON:API specification
-- Write functional HTTP tests covering core behaviors
-- Add behaviors for custom ordering of todos
+## Setup
 
-## Time Estimate
-About 2-3 hours, depending on your experience level. There is no time limit, this estimation is for you to plan your time.
+1. Clone the repository:
+   git clone https://github.com/elliekim312/laravel-assessment.git
+   cd laravel-assessment
 
-## Finished?
-Upon completion of this challenge, please send us a link to your repository at jylissa.salveson@daysmart.com!
+2. Install dependencies:
+   composer install
 
-## Issues?
-If you have any questions or issues during the challenge, please do not hesitate to contact me at jordan.gosney@daysmart.com.
+3. Set up your database in .env file
+
+4. Generate an application key
+
+5. Run database migrations and seeders:
+   php artisan migrate --seed
+
+6. Start the development server:
+   php artisan serve
+
+7. Access:
+   http://127.0.0.1:8000/api/v1/documentation
+   ![Image](laravelAPISwaggerUI.png):
