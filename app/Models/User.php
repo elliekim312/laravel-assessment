@@ -15,7 +15,7 @@ use Illuminate\Notifications\Notifiable;
  *     title="User",
  *     description="User model",
  *     @OA\Property(
- *         property="id",
+ *         property="uuid",
  *         type="string",
  *         format="uuid",
  *         description="Unique identifier for the user"
@@ -48,6 +48,11 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
+
+    // Add the primary key configuration here
+    protected $primaryKey = 'uuid';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     /**
      * The attributes that are mass assignable.
@@ -83,7 +88,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function todos(): HasMany
+    public function todos()
     {
         return $this->hasMany(Todo::class, 'user_id', 'uuid');
     }

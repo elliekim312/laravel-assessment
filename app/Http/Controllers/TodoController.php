@@ -34,7 +34,7 @@ class TodoController extends Controller
      *     )
      * )
      */
-    public function todosIndex()
+    public function todosIndex(Request $request)
     {
         // Initialize the query
         $query = Todo::query();
@@ -102,6 +102,9 @@ class TodoController extends Controller
                 'user_id' => 'required|uuid|exists:users,id'
             ]);
 
+            // Add a generated UUID to the data
+            $validatedData['uuid'] = (string) Str::uuid();
+
             // Create a new todo
             $todo = Todo::create($validatedData);
 
@@ -128,7 +131,7 @@ class TodoController extends Controller
      *     tags={"Todos"},
      *     summary="Get a specific todo by ID",
      *     @OA\Parameter(
-     *         name="todoId",
+     *         name="uuid",
      *         in="path",
      *         required=true,
      *         description="UUID of the todo to retrieve",
@@ -151,7 +154,7 @@ class TodoController extends Controller
      */
     public function todoRead($todoId)
     {
-        $todo = Todo::find($todoId);
+        $todo = Todo::where('uuid', $todoId)->find($todoId);
         if ($todo) {
             return response()->json(['data' => $todo], 200);
         } else {
@@ -166,7 +169,7 @@ class TodoController extends Controller
      *     tags={"Todos"},
      *     summary="Update a specific todo by ID",
      *     @OA\Parameter(
-     *         name="todoId",
+     *         name="uuid",
      *         in="path",
      *         required=true,
      *         description="UUID of the todo to update",
@@ -209,7 +212,7 @@ class TodoController extends Controller
     public function todoUpdate(Request $request, $todoId)
     {
         try {
-            $todo = Todo::find($todoId);
+            $todo = Todo::where('uuid', $todoId)->find($todoId);
 
             if (todo) {
                 $validatedData = $request->validate([
@@ -240,7 +243,7 @@ class TodoController extends Controller
      *     tags={"Todos"},
      *     summary="Delete a specific todo by ID",
      *     @OA\Parameter(
-     *         name="todoId",
+     *         name="uuid",
      *         in="path",
      *         required=true,
      *         description="UUID of the todo to delete",
@@ -263,7 +266,7 @@ class TodoController extends Controller
     public function todoDelete($todoId)
     {
         try {
-            $todo = Todo::find($todoId);
+            $todo = Todo::where('uuid', $todoId)->find($todoId);
             if ($todo) {
                 $todo->delete();
                 return response()->json([], 204); 

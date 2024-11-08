@@ -150,8 +150,12 @@ class UserController extends Controller
                 'password' => 'required|string|min:8',
             ]);
 
+            // Add a generated UUID to the data
+            $uuid = (string) Str::uuid();
+
             // Create a new user and hash the password
             $user = User::create([
+                'uuid' => $uuid,
                 'name' => $validatedData['name'],
                 'email' => $validatedData['email'],
                 'password' => bcrypt($validatedData['password']),
@@ -208,7 +212,7 @@ class UserController extends Controller
      * )
      */
     public function userRead($userId) {
-        $user = User::find($userId);
+        $user = User::where('uuid', $userId)->find($userId);
         if ($user) {
             return response()->json(['data' => $user], 200);
         } else {
@@ -275,7 +279,7 @@ class UserController extends Controller
     public function userUpdate(Request $request, $userId)
     {
         try {
-            $user = User::find($userId);
+            $user = User::where('uuid', $userId)->find($userId);
 
             if ($user) {
                 $validatedData = $request->validate([
@@ -336,7 +340,7 @@ class UserController extends Controller
     public function userDelete($userId)
     {
         try {
-            $user = User::find($userId);
+            $user = User::where('uuid', $userId)->find($userId);
 
             if ($user) {
                 $user->delete();
@@ -390,7 +394,8 @@ class UserController extends Controller
     public function userGetTodos($userId)
     {
         try {
-            $user = User::with('todos')->findOrFail($userId);
+            $user = User::with('todos')->where('uuid', $userId)->first();
+            
             if ($user) {
                 $todos = $user->todos;
                 return response()->json(['data' => $todos], 200);

@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *     title="Todo",
  *     description="Todo model",
  *     @OA\Property(
- *         property="id",
+ *         property="uuid",
  *         type="string",
  *         format="uuid",
  *         description="Unique identifier for the todo"
@@ -62,6 +62,11 @@ class Todo extends Model
     /** @use HasFactory<\Database\Factories\TodoFactory> */
     use HasFactory;
 
+    // Add the primary key configuration here
+    protected $primaryKey = 'uuid';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
         'description',
         'priority',
@@ -73,7 +78,7 @@ class Todo extends Model
 
     public $timestamps = true;
 
-    public function user(): BelongsTo
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'uuid');
     }

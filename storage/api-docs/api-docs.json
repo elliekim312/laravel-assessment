@@ -134,7 +134,7 @@
                 "operationId": "todoRead",
                 "parameters": [
                     {
-                        "name": "todoId",
+                        "name": "uuid",
                         "in": "path",
                         "description": "UUID of the todo to retrieve",
                         "required": true,
@@ -181,7 +181,7 @@
                 "operationId": "todoDelete",
                 "parameters": [
                     {
-                        "name": "todoId",
+                        "name": "uuid",
                         "in": "path",
                         "description": "UUID of the todo to delete",
                         "required": true,
@@ -221,7 +221,7 @@
                 "operationId": "todoUpdate",
                 "parameters": [
                     {
-                        "name": "todoId",
+                        "name": "uuid",
                         "in": "path",
                         "description": "UUID of the todo to update",
                         "required": true,
@@ -705,7 +705,7 @@
                 "title": "Todo",
                 "description": "Todo model",
                 "properties": {
-                    "id": {
+                    "uuid": {
                         "description": "Unique identifier for the todo",
                         "type": "string",
                         "format": "uuid"
@@ -753,7 +753,7 @@
                 "title": "User",
                 "description": "User model",
                 "properties": {
-                    "id": {
+                    "uuid": {
                         "description": "Unique identifier for the user",
                         "type": "string",
                         "format": "uuid"
